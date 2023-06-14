@@ -1,6 +1,6 @@
 # BamBot V2 Source Code
 
-# How to use
+![Bamboo Himself](docs/bamboo.png)
 
 ## Dependencies
 
