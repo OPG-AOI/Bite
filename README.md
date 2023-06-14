@@ -1,6 +1,6 @@
-# BamBot V2 Source Code
+<img src="docs/bamboo.png" width="256" height="256">
 
-![Bamboo Himself](docs/bamboo.png)
+# BamBot V2 Source Code
 
 ## Dependencies
 
