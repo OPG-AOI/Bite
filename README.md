@@ -2,7 +2,7 @@
 
 # BamBot V2 Source Code
 
-Just give us the credit or you shall die.
+Just give us the credit in the discord bots bio.
 
 ## Dependencies
 
