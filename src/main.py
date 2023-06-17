@@ -53,6 +53,9 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("Hey 😏!", ephemeral=True)
 
 
+
+
+
 # warn command
 possible_warn_reasons = [
     "They were acting like a monkey and got a timeout!",
@@ -142,6 +145,100 @@ possible_quotes =[
 async def quote(interaction: discord.Interaction):
     before = datetime.now()
     await interaction.response.send_message(possible_quotes[random.randint(0, len(possible_quotes) - 1)], ephemeral=True)
+
+
+possible_roasts = [
+    "Is your name Google? Because you have everything I'm searching for... in the wrong places.",
+    "If laughter is the best medicine, your face must be curing the world.",
+    "Roses are red, violets are blue, I have five fingers, and the middle one is for you.",
+    "I'm not saying you're dumb, but you're so uneducated, your brain cell travels alone.",
+    "I'd challenge you to a battle of wits, but I see you're unarmed.",
+    "If you were any less intelligent, we'd have to water you twice a week.",
+    "You bring everyone so much joy... when you leave the room.",
+    "I'm jealous of people who don't know you.",
+    "If I had a dollar for every brain cell you have, I'd have one dollar.",
+    "You're like a light switch. Even a little kid can turn you on.",
+    "I'm sorry, were you talking to me? I don't listen to insignificant people.",
+    "I'd explain it to you, but I don't have any crayons.",
+    "You're so full of hot air, even your imaginary friends think you're annoying.",
+    "I'd call you a tool, but that would imply you're useful.",
+    "Is your name Wi-Fi? Because I'm feeling a connection... failure.",
+    "If you were a vegetable, you'd be a 'cute-cumber.'",
+    "I'm not saying you're ugly, but you could scare the buzzards off a gut wagon.",
+    "I'm surprised you haven't been banned from the gene pool yet.",
+    "Your family tree must be a cactus because everyone on it is a prick.",
+    "I was going to give you a nasty look, but I see you already have one.",
+    "Is your face always this greasy, or are you just preparing for a slip 'n' slide?",
+    "Your IQ doesn't make a u-turn. It just merges onto the highway of stupidity.",
+    "If laughter is contagious, your face should be a pandemic.",
+    "I'd tell you to go outside and play, but you might get lost.",
+    "I'm not a doctor, but I think you need a brain transplant.",
+    "Your face is just fine, but we'll have to put a bag over that personality.",
+    "Is your name Homework? Because I'm not doing you, but I should be.",
+    "I'm not insulting you; I'm describing you.",
+    "If ignorance is bliss, you must be the happiest person on the planet.",
+    "You have an entire life to be an idiot. Why not take today off?",
+    "I'm sorry if my brutal honesty inconveniences your delicate sensibilities.",
+    "You're not stupid. You just have bad luck when thinking.",
+    "If I wanted to kill myself, I'd climb up to your ego and jump down to your IQ level.",
+    "I'm not saying you're old, but your birth certificate expired.",
+    "Do you ever wonder what life would be like if you'd had enough oxygen at birth?",
+    "Some people just need a high-five. In the face. With a chair.",
+    "It's better to let someone think you're an idiot than to open your mouth and prove it.",
+    "If I had a face like yours, I'd sue my parents.",
+    "I'd like to help you out. Which way did you come in?",
+    "You're so dense, light bends around you.",
+    "Some people should use glue sticks instead of chapstick.",
+    "Did someone leave your cage open?",
+    "I'm sorry, I can't hear you over the sound of how awesome I am.",
+    "You're so bad at thinking, you couldn't even find your way out of a wet paper bag.",
+    "I'm trying my absolute hardest to see things from your perspective, but I just can't get my head that far up my rear end.",
+    "I would say you're a tool, but that would imply you're useful.",
+    "Some people were dropped as a baby. You were clearly thrown at a wall.",
+    "I'm sorry, were you trying to offend me? You'll have to try harder. Much, much harder.",
+    "You're not a complete idiot... some parts are missing.",
+    "I was going to give you a nasty look, but I see you already have one.",
+    "I'm not saying you're stupid; you're just not quite as clever as you think you are.",
+    "If your brain were dynamite, there wouldn't be enough to blow your hat off.",
+    "I don't think you're stupid. You just have a bad luck when thinking.",
+    "If you were a vegetable, you'd be a 'cute-cumber.'",
+    "I'm not saying you're fat, but it looks like you were poured into your clothes and someone forgot to say 'when.'",
+    "You must have been born on a highway because that's where most accidents happen.",
+    "I'd call you a donkey, but that would be an insult to donkeys.",
+    "Your family tree must be a cactus because everyone on it is a prick.",
+    "I'm not saying you're ugly, but you make blind kids cry.",
+    "I'm not saying you're boring; I'm just saying you're the reason people invent new colors.",
+    "You're not pretty enough to have such an ugly personality.",
+    "You're so fake that Barbie is jealous.",
+    "I envy people who have never met you.",
+    "You bring everyone so much joy... when you leave the room.",
+    "If laughter is the best medicine, your face must be curing the world.",
+    "I'm sorry, were you talking to me? I don't listen to insignificant people.",
+    "I'm not a doctor, but I think you need a brain transplant.",
+    "Your face is just fine, but we'll have to put a bag over that personality.",
+    "I'm not insulting you; I'm describing you.",
+    "You're not stupid. You just have bad luck when thinking.",
+    "You're so dense, light bends around you.",
+    "If I wanted to kill myself, I'd climb up to your ego and jump down to your IQ level.",
+    "You're so bad at thinking, you couldn't even find your way out of a wet paper bag.",
+    "I'm trying my absolute hardest to see things from your perspective, but I just can't get my head that far up my rear end.",
+    "I would say you're a tool, but that would imply you're useful.",
+    "Some people were dropped as a baby. You were clearly thrown at a wall.",
+    "I'm sorry, were you trying to offend me? You'll have to try harder. Much, much harder.",
+    "You're not a complete idiot... some parts are missing.",
+    "I'm not saying you're stupid; you're just not quite as clever as you think you are.",
+    "I'm not saying you're ugly, but you make blind kids cry.",
+    "I'm not saying you're boring; I'm just saying you're the reason people invent new colors.",
+    "You're not pretty enough to have such an ugly personality.",
+    "I envy people who have never met you."
+]
+
+
+@bot.tree.command(name="roast", description="Roasts a person in the")
+@app_commands.describe(user="User to roast.")
+@app_commands.default_permissions(administrator=False)
+async def warn(interaction: discord.Interaction, user: discord.Member):
+    await interaction.response.send_message(f"{user.mention} heres something for you: {possible_roasts[random.randint(0, len(possible_roasts) - 1)]}")
 
 # running the bot
 bot.run(bot_token.bot_token)
