@@ -2,6 +2,8 @@
 
 # BamBot V2 Source Code
 
+Just give us the credit.
+
 ## Dependencies
 
 The only depedency for the project as of current is python itself and discordpy (installed with `pip install discord`).
