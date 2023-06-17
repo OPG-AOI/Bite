@@ -1,6 +1,6 @@
 <img src="docs/bamboo.png" width="256" height="256">
 
-# BamBot V2 Source Code
+# ByteBot V2 Source Code
 
 Just give us the credit in the discord bots bio.
 
