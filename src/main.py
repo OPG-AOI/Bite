@@ -66,7 +66,9 @@ async def warn(interaction: discord.Interaction, user: discord.Member):
     await user.timeout(timedelta(minutes=5))
     await interaction.response.send_message(f"{user.mention} has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]}")
 
-possible_quotes = ["The only way to do great work is to love what you do. - Steve Jobs",
+possible_quotes =[  
+
+    "The only way to do great work is to love what you do. - Steve Jobs",
     "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
     "Believe you can and you're halfway there. - Theodore Roosevelt",
     "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
@@ -100,8 +102,41 @@ possible_quotes = ["The only way to do great work is to love what you do. - Stev
     "The only thing that stands between you and your dream is the will to try and the belief that it is actually possible. - Joel Brown",
     "The road to success and the road to failure are almost exactly the same. - Colin R. Davis",
     "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D",
+    "The only way to do great work is to love what you do. - Steve Jobs",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+    "Believe you can and you're halfway there. - Theodore Roosevelt",
+    "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+    "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt",
+    "It does not matter how slowly you go as long as you do not stop. - Confucius",
+    "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful. - Albert Schweitzer",
+    "The greatest glory in living lies not in never falling, but in rising every time we fall. - Nelson Mandela",
+    "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+    "In the end, it's not the years in your life that count. It's the life in your years. - Abraham Lincoln",
+    "The only person you are destined to become is the person you decide to be. - Ralph Waldo Emerson",
+    "The best revenge is massive success. - Frank Sinatra",
+    "Success usually comes to those who are too busy to be looking for it. - Henry David Thoreau",
+    "The way to get started is to quit talking and begin doing. - Walt Disney",
+    "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty. - Winston Churchill",
+    "Your time is limited, don't waste it living someone else's life. - Steve Jobs",
+    "If you want to achieve greatness stop asking for permission. - Anonymous",
+    "I find that the harder I work, the more luck I seem to have. - Thomas Jefferson",
+    "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+    "Believe you can and you're halfway there. - Theodore Roosevelt",
+    "The greatest glory in living lies not in never falling, but in rising every time we fall. - Nelson Mandela",
+    "Success is not the absence of failure; it's the persistence through failure. - Aisha Tyler",
+    "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle. - Christian D. Larson",
+    "The biggest risk is not taking any risk. In a world that's changing quickly, the only strategy that is guaranteed to fail is not taking risks. - Mark Zuckerberg",
+    "Don't be afraid to give up the good to go for the great. - John D. Rockefeller",
+    "The best way to predict the future is to create it. - Peter Drucker",
+    "Success is not just about making money. It's about making a difference. - Unknown",
+    "The only way to do great work is to love what you do. - Steve Jobs",
+    "The secret of success is to know something nobody else knows. - Aristotle Onassis",
+    "Success is walking from failure to failure with no loss of enthusiasm. - Winston Churchill",
+    "The harder I work, the luckier I get. - Samuel Goldwyn",
+    "The secret to success is to know something nobody else knows. - Aristotle Onassis",
+    "Success is not the absence of failure",
     
-     ]
+    ]
 
 @bot.tree.command(name="quote", description="Gives an inspiring quote from sombody")
 async def quote(interaction: discord.Interaction):
