@@ -258,18 +258,18 @@ funnypepsi_story10 = "No school would provide landing space for a student's figh
 
 
 @bot.tree.command(name="funnypepsi", description="Tells you a funny pepsi story that happend in the 1990's")
-async def quote(interaction: discord.Interaction):
+async def funnypepsi(interaction: discord.Interaction):
     before = datetime.now()
     await interaction.response.send_message(funnypepsi_story1)
-    await interaction.response.send_message(funnypepsi_story2)
-    await interaction.response.send_message(funnypepsi_story3)
-    await interaction.response.send_message(funnypepsi_story4)
-    await interaction.response.send_message(funnypepsi_story5)
-    await interaction.response.send_message(funnypepsi_story6)
-    await interaction.response.send_message(funnypepsi_story7)
-    await interaction.response.send_message(funnypepsi_story8)
-    await interaction.response.send_message(funnypepsi_story9)
-    await interaction.response.send_message(funnypepsi_story10)
+    await interaction.followup.send(funnypepsi_story2)
+    await interaction.followup.send(funnypepsi_story3)
+    await interaction.followup.send(funnypepsi_story4)
+    await interaction.followup.send(funnypepsi_story5)
+    await interaction.followup.send(funnypepsi_story6)
+    await interaction.followup.send(funnypepsi_story7)
+    await interaction.followup.send(funnypepsi_story8)
+    await interaction.followup.send(funnypepsi_story9)
+    await interaction.followup.send(funnypepsi_story10)
 # running the bot
 bot.run(bot_token.bot_token)
 
