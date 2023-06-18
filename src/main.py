@@ -240,6 +240,36 @@ possible_roasts = [
 async def warn(interaction: discord.Interaction, user: discord.Member):
     await interaction.response.send_message(f"{user.mention} heres something for you: {possible_roasts[random.randint(0, len(possible_roasts) - 1)]}")
 
+funnypepsi_story1 = "Leonard v. Pepsico, Inc., 88 F. Supp. 2d 116, (S.D.N.Y. 1999), aff'd 210 F.3d 88 (2d Cir. 2000), more widely known as the Pepsi Points case, is an American contract law case regarding offer and acceptance. The case was brought in the United States District Court for the Southern District of New York in 1999; its judgment was written by Kimba Wood. In 1996, PepsiCo began a promotional loyalty program, in which customers could earn Pepsi Points; these points could, in turn, be traded for physical items. A television commercial for the loyalty program displayed the commercials protagonist flying a McDonnell Douglas AV-8B Harrier II vertical take off jet aircraft to school, valued at $37.4 million at the time, which could be redeemed for 7,000,000 Pepsi Points. The plaintiff, John Leonard, discovered a loophole in the promotion, allowing him to purchase Pepsi Points at 10¢ per point. Leonard promptly delivered a check for $700,008.50 to PepsiCo, attempting to purchase the jet. PepsiCo initially refuted Leonards offer, citing the humorous nature of the offer in the advertisement. Leonard then sued PepsiCo, Inc. in an effort to enforce the offer and acceptance perceived by Leonard to be made in the advertisement. In her judgment, Wood sided with PepsiCo, noting the frivolous and improbable nature of landing a fighter jet in a school zone that was portrayed by the protagonist. PepsiCo would re-release the advertisement, valuing the jet at 700,000,000 Pepsi Points. In the mid-1990s, Pepsi faced competition from Coca-Cola, and sought to attract a younger audience.[1] In March 1996, Pepsi began the Pepsi Stuff promotional campaign, allowing customers to accrue Pepsi Points that could, in turn, be redeemed for items such as T-shirts and leather jackets."
+
+
+funnypepsi_story2 = "These points could be earned through purchasing Pepsi products, with labels attached to the boxes of such products. The campaign was the largest in Pepsis history.[3] To advertise the promotion, Pepsi released a series of television commercials; one of these commercials showcased a computer-generated Pepsi-branded AV-8 Harrier II, a Harrier jet manufactured by McDonnell Douglas.[2][4] The commercial, which offered the jet for 7,000,000 Pepsi Points, caught the attention of John Leonard, a 21-year-old business student. In place of a label, the promotion allowed Pepsi Points to be directly purchased for 10¢ per point, a detail noticed by Leonard, who convinced five investors to lend him a total of $700,000.[2] Leonard sent a check for $700,008.50 (including $10 for shipping and handling), and 15 labels, per promotion rules. The offer was refused by Pepsi, who referred to the promotion of the Harrier jet in the commercial as ""fanciful"" and stated its intention was to create a ""humorous and entertaining ad"".The claim alleged both breach of contract and fraud. The case was originally brought in Florida, but eventually heard in New York. The defendant, PepsiCo, moved for summary judgment pursuant to Federal Rule of Civil Procedure 56. Among other claims made, Leonard claimed that a federal judge was incapable of deciding on the matter, and that instead the decision had to be made by a jury consisting of members of the ""Pepsi Generation"" to whom the advertisement would allegedly constitute an offer."
+
+funnypepsi_story3 = "The court presided over by Judge Kimba Wood, rejected Leonard's claims and denied recovery on several grounds, including:"
+
+funnypepsi_story4 = "It was found that the advertisement featuring the jet did not constitute an offer under the Restatement (Second) of Contracts."
+funnypepsi_story5 =  "The court found that no reasonable person could have believed that the company seriously intended to convey a jet worth roughly $37.4 million for $700,000, i.e., that it was mere puffery."
+funnypepsi_story6 = "The value of the alleged contract meant that it fell under the provisions of the Statute of Frauds, but the statute's requirement for a written agreement between the parties was not fulfilled, so a contract had not been formed."
+funnypepsi_story7 = "In justifying its conclusion that the commercial was ""evidently done in jest"" and that ""The notion of traveling to school in a Harrier Jet is an exaggerated adolescent fantasy,"" the court made several observations regarding the nature and content of the commercial, including:"
+
+funnypepsi_story8 = "The callow youth featured in the commercial is a highly improbable pilot, one who could barely be trusted with the keys to his parents' car, much less the prized aircraft of the United States Marine Corps."
+funnypepsi_story9 = "The teenager's comment that flying a Harrier Jet to school 'sure beats the bus' evinces an improbably insouciant attitude toward the relative difficulty and danger of piloting a fighter plane in a residential area."
+funnypepsi_story10 = "No school would provide landing space for a student's fighter jet, or condone the disruption the jet's use would cause."
+
+
+@bot.tree.command(name="funnypepsi", description="Tells you a funny pepsi story that happend in the 1990's")
+async def quote(interaction: discord.Interaction):
+    before = datetime.now()
+    await interaction.response.send_message(funnypepsi_story1)
+    await interaction.response.send_message(funnypepsi_story2)
+    await interaction.response.send_message(funnypepsi_story3)
+    await interaction.response.send_message(funnypepsi_story4)
+    await interaction.response.send_message(funnypepsi_story5)
+    await interaction.response.send_message(funnypepsi_story6)
+    await interaction.response.send_message(funnypepsi_story7)
+    await interaction.response.send_message(funnypepsi_story8)
+    await interaction.response.send_message(funnypepsi_story9)
+    await interaction.response.send_message(funnypepsi_story10)
 # running the bot
 bot.run(bot_token.bot_token)
 
