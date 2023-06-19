@@ -278,14 +278,14 @@ async def funnypepsi(interaction: discord.Interaction):
 
 @bot.tree.command(name="boop", description="Boop someone on the head")
 @app_commands.describe(user="User to boop.")
-async def bop(ctx, user: discord.User):
-    image_path = os.path.join(os.path.dirname(__file__), 'src', 'bop.png')
+async def boop(interaction: discord.Interaction, user: discord.User):
+    image_path = os.path.join(os.path.dirname(__file__), 'bop.png')
     
     with open(image_path, 'rb') as file:
         image = discord.File(file)
 
     message = f"{user.mention} got bopped!"
-    await ctx.send(content=message, file=image)
+    await interaction.response.send_message(content=message, file=image)
 # running the bot
 bot.run(bot_token.bot_token)
 
