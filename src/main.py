@@ -68,26 +68,26 @@ async def autorole(interaction):
     if interaction.author.guild_permissions.administrator:
         # Your code for the autorole command
         # Prompt options to set up auto role system
-        await ctx.send("Auto Role Setup:\n1. Set Auto Role\n2. Remove Auto Role")
+        await interaction.send("Auto Role Setup:\n1. Set Auto Role\n2. Remove Auto Role")
 
         def check(m):
-            return m.author == ctx.author and m.channel == ctx.channel
+            return m.author == interaction.author and m.channel == interaction.channel
 
         try:
             message = await bot.wait_for('message', check=check, timeout=30)
         except TimeoutError:
-            await ctx.send("Auto Role setup timed out.")
+            await interaction.send("Auto Role setup timed out.")
             return
 
         option = message.content
 
         if option == "1":
-            await ctx.send("Mention the role to be assigned to new members:")
+            await interaction.send("Mention the role to be assigned to new members:")
 
             try:
                 role_message = await bot.wait_for('message', check=check, timeout=30)
             except TimeoutError:
-                await ctx.send("Role setup timed out.")
+                await interaction.send("Role setup timed out.")
                 return
 
             role = role_message.role_mentions[0]
@@ -95,16 +95,16 @@ async def autorole(interaction):
             # Save the role or use it as desired
             # e.g., store in a database or assign it when new users join
 
-            await ctx.send(f"Auto Role set to {role.name}.")
+            await interaction.send(f"Auto Role set to {role.name}.")
 
         elif option == "2":
             # Remove the auto role or perform necessary actions
-            await ctx.send("Auto Role removed.")
+            await interaction.send("Auto Role removed.")
 
         else:
-            await ctx.send("Invalid option.")
+            await interaction.send("Invalid option.")
     else:
-        await ctx.send("You must be an admin to use this command.")
+        await interaction.send("You must be an admin to use this command.")
 
 
 # warn command
