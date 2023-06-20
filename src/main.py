@@ -50,6 +50,24 @@ async def on_member_join(member):
     welcome_message = "Hello, Welcome to Bamboo's Fan Server! I hope you have a great time!"
     await member.send(welcome_message)
 
+#auto role fans! role
+
+@bot.event
+async def on_member_join(member):
+    role = discord.utils.get(member.guild.roles, name="Fans!")
+    await member.add_roles(role)
+
+#welcome message in guild
+
+@bot.event
+async def on_member_join(member):
+    system_channel = member.guild.system_channel
+    if system_channel is not None:
+        server_title = member.guild.name
+        welcome_message = f'Welcome {member.mention} to {server_title}! We hope you have a great time with us!'
+        await system_channel.send(welcome_message)
+
+
 # ping command
 
 
