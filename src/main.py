@@ -57,24 +57,6 @@ async def ping(interaction: discord.Interaction):
 	await interaction.response.send_message("Hey 😏!", ephemeral=True)
 
 
-
-
-
-# warn command
-possible_warn_reasons = [
-	"They were acting like a monkey and got a timeout!",
-	"They were being too silly of a goose.",
-	"They were acting kind of sussy and got ejected for some time.",
-	"They said a nono word and went bye bye."
-]
-
-@bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
-@app_commands.describe(user="User to warn.")
-@app_commands.default_permissions(administrator=True)
-async def warn(interaction: discord.Interaction, user: discord.Member, reason: str):
-	await user.timeout(timedelta(minutes=5))
-	await interaction.response.send_message(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
@@ -121,6 +103,23 @@ async def autorole(ctx):
             await ctx.send("Invalid option.")
     else:
         await ctx.send("You must be an admin to use this command.")
+
+
+# warn command
+possible_warn_reasons = [
+	"They were acting like a monkey and got a timeout!",
+	"They were being too silly of a goose.",
+	"They were acting kind of sussy and got ejected for some time.",
+	"They said a nono word and went bye bye."
+]
+
+@bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
+@app_commands.describe(user="User to warn.")
+@app_commands.default_permissions(administrator=True)
+async def warn(interaction: discord.Interaction, user: discord.Member, reason: str):
+	await user.timeout(timedelta(minutes=5))
+	await interaction.response.send_message(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
+
 
 
 
