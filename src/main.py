@@ -26,6 +26,11 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 # initialization
 @bot.event
 async def on_ready():
+    print(f'Logged in as {bot.user.name}')
+
+
+@bot.event
+async def on_ready():
 	random.seed()
 	print(f"Bot is ready. Logged in as {bot.user.name}")
 	
@@ -57,14 +62,11 @@ async def ping(interaction: discord.Interaction):
 	await interaction.response.send_message("Hey 😏!", ephemeral=True)
 
 
-@bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user.name}')
 
-@bot.command()
-async def autorole(ctx):
-    # Check if the user is an admin
-    if ctx.author.guild_permissions.administrator:
+@bot.tree.command()
+async def autorole(interaction):
+    if interaction.author.guild_permissions.administrator:
+        # Your code for the autorole command
         # Prompt options to set up auto role system
         await ctx.send("Auto Role Setup:\n1. Set Auto Role\n2. Remove Auto Role")
 
