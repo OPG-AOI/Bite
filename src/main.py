@@ -63,7 +63,9 @@ async def ping(interaction: discord.Interaction):
 # warn command
 possible_warn_reasons = [
 	"They were acting like a monkey and got a timeout!",
-	"They were being too silly of a goose."
+	"They were being too silly of a goose.",
+	"They were acting kind of sussy and got ejected for some time.",
+	"They said a nono word and went bye bye."
 ]
 
 @bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
