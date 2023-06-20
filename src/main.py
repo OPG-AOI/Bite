@@ -69,7 +69,7 @@ possible_warn_reasons = [
 @bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
 @app_commands.describe(user="User to warn.")
 @app_commands.default_permissions(administrator=True)
-async def warn(interaction: discord.Interaction, user: discord.Member):
+async def warn(interaction: discord.Interaction, user: discord.Member, reason: str):
 	await user.timeout(timedelta(minutes=5))
 	await interaction.response.send_message(f"{user.mention} has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]}")
 
@@ -276,8 +276,8 @@ async def funnypepsi(interaction: discord.Interaction):
 	await channel.send(benchmark)
 	await channel.send(funnypepsi_story9 + " " + funnypepsi_story10)
 
-@bot.tree.command(name="boop", description="Boop someone on the head")
-@app_commands.describe(user="User to boop.")
+@bot.tree.command(name="bop", description="Bop someone on the head")
+@app_commands.describe(user="User to bop.")
 async def boop(interaction: discord.Interaction, user: discord.User):
     image_path = os.path.join(os.path.dirname(__file__), 'bop.png')
     
@@ -286,9 +286,7 @@ async def boop(interaction: discord.Interaction, user: discord.User):
 
     message = f"{user.mention} got bopped!"
     await interaction.response.send_message(content=message, file=image)
+
+
 # running the bot
 bot.run(bot_token.bot_token)
-
-
-
-
