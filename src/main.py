@@ -73,7 +73,56 @@ possible_warn_reasons = [
 @app_commands.default_permissions(administrator=True)
 async def warn(interaction: discord.Interaction, user: discord.Member, reason: str):
 	await user.timeout(timedelta(minutes=5))
-	await interaction.response.send_message(f"{user.mention} has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]}")
+	await interaction.response.send_message(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user.name}')
+
+@bot.command()
+async def autorole(ctx):
+    # Check if the user is an admin
+    if ctx.author.guild_permissions.administrator:
+        # Prompt options to set up auto role system
+        await ctx.send("Auto Role Setup:\n1. Set Auto Role\n2. Remove Auto Role")
+
+        def check(m):
+            return m.author == ctx.author and m.channel == ctx.channel
+
+        try:
+            message = await bot.wait_for('message', check=check, timeout=30)
+        except TimeoutError:
+            await ctx.send("Auto Role setup timed out.")
+            return
+
+        option = message.content
+
+        if option == "1":
+            await ctx.send("Mention the role to be assigned to new members:")
+
+            try:
+                role_message = await bot.wait_for('message', check=check, timeout=30)
+            except TimeoutError:
+                await ctx.send("Role setup timed out.")
+                return
+
+            role = role_message.role_mentions[0]
+
+            # Save the role or use it as desired
+            # e.g., store in a database or assign it when new users join
+
+            await ctx.send(f"Auto Role set to {role.name}.")
+
+        elif option == "2":
+            # Remove the auto role or perform necessary actions
+            await ctx.send("Auto Role removed.")
+
+        else:
+            await ctx.send("Invalid option.")
+    else:
+        await ctx.send("You must be an admin to use this command.")
+
+
 
 possible_quotes =[  
 
