@@ -81,6 +81,11 @@ async def ping(interaction: discord.Interaction):
         ((now.second * 1000.0 + now.microsecond) - (before.second * 1000.0 + before.microsecond)) / 1000.0)
     await interaction.edit_original_response(content=f"Pong! ({formatted_ping} ms)")
 
+@bot.tree.command(name="surprise", description="surprise!!")
+async def ping(interaction: discord.Interaction):
+    before = datetime.now()
+    await interaction.response.send_message("SURPRISE MOTHER FUCKER. https://www.youtube.com/watch?v=R2hMZ_eetLw  https://www.youtube.com/watch?v=5gAenGrKHKU", ephemeral=True)
+    
 
 @bot.tree.command(name="hello", description="Hello!")
 async def ping(interaction: discord.Interaction):
