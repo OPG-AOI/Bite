@@ -1,0 +1,27 @@
+Bite Discord Bot Terms of Service
+
+These terms of service ("Terms") regulate the utilization of the Bite Discord bot ("Bot") and any correlated services offered by Leather128 and Bamboo ("Providers"). By accessing and using the Bot, you acknowledge and agree to adhere to these Terms. In the event that you disagree with these Terms, kindly abstain from using the Bot.
+
+1. Use of the Bot
+The Bot's source code is accessible in the GitHub repository at [Link to Bite GitHub Repository], and is governed by an open-source license that permits copying, modification, and distribution. However, any application of the Bot's services may be subject to further limitations as detailed in these Terms.
+
+2. Prohibited Activities
+Users are prohibited from engaging in any illegal, abusive, malicious, or detrimental activities while utilizing the Bot. Such activities include, but are not limited to, spamming, harassment, dissemination of malicious software, and manipulating or deceiving individuals. Users are also expected to refrain from deploying the Bot in a manner that disrupts or contravenes the Discord platform's Terms of Service.
+
+3. Limitation of Liability
+Providers assume no liability for any damages, losses, or legal responsibilities resulting from the use of the Bot or its associated services. The Bot is made available on an "as is" basis, without any warranties, either expressed or implied.
+
+4. Modifications to the Terms
+Providers reserve the prerogative to modify or revise these Terms at their discretion, without prior notification. Users are responsible for periodically reviewing the Terms. Continued utilization of the Bot after any amendments implies acceptance of the revised Terms.
+
+5. Termination
+Providers retain the right to terminate or suspend access to the Bot, at their sole discretion and without incurring any liability, for any reasons including contravention of these Terms.
+
+6. Governing Law
+These Terms shall be interpreted and governed in accordance with the laws of [Your Jurisdiction], without reference to its conflict of law provisions.
+
+7. Contact Information
+For any queries or concerns regarding these Terms or the Bot, please contact Leather128 and Bamboo at [Your Contact Information].
+
+Summary:
+The Bite Discord bot, created by Leather128 and Bamboo, can be accessed via the GitHub repository at [Link to Bite GitHub Repository]. You are allowed to copy and modify the open-source code per the associated license. However, engagement in prohibited activities, including manipulating individuals, is restricted, and Providers assume no liability. The Providers may adjust the Terms, terminate access, or suspend the Bot at their discretion. Usage of the Bot constitutes consent to these Terms.

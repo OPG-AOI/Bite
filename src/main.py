@@ -45,10 +45,7 @@ async def on_ready():
 # join message :3
 
 
-@bot.event
-async def on_member_join(member):
-    welcome_message = "Hello, Welcome to Bamboo's Fan Server! I hope you have a great time!"
-    await member.send(welcome_message)
+
 
 #auto role fans! role
 
@@ -81,11 +78,9 @@ async def ping(interaction: discord.Interaction):
         ((now.second * 1000.0 + now.microsecond) - (before.second * 1000.0 + before.microsecond)) / 1000.0)
     await interaction.edit_original_response(content=f"Pong! ({formatted_ping} ms)")
 
-@bot.tree.command(name="surprise", description="surprise!!")
-async def ping(interaction: discord.Interaction):
-    before = datetime.now()
-    await interaction.response.send_message("SURPRISE MOTHER FUCKER. https://www.youtube.com/watch?v=R2hMZ_eetLw  https://www.youtube.com/watch?v=5gAenGrKHKU", ephemeral=True)
     
+
+
 
 @bot.tree.command(name="hello", description="Hello!")
 async def ping(interaction: discord.Interaction):
@@ -372,6 +367,23 @@ async def boop(interaction: discord.Interaction, user: discord.User):
     message = f"{user.mention} got bopped!"
     await interaction.response.send_message(content=message, file=image)
 
+@bot.tree.command(name="emily", description="emily!!")
+async def emily(interaction: discord.Interaction):
+     BALLS = os.path.join(os.path.dirname(__file__), 'emily.png')
+    
+     with open(BALLS, 'rb') as file:
+        image = discord.File(file)
+
+     message = f"Emily is kind of ballin. Oh and here is her YouTube channel: https://www.youtube.com/@emilybacher8641"
+     await interaction.response.send_message(content=message, file=image, ephemeral=True)
+
+@bot.tree.command(name="alex", description= "The great alex" )
+async def alex(interaction: discord.Interaction):
+    await interaction.message.send_message("Yo its Emily's little bro Alex!!!!! Hes aweseome btw.")
+
+@bot.tree.command(name="keatonium", description= "The great keatonium" )
+async def alex(interaction: discord.Interaction):
+    await interaction.message.send_message("Bamboos mother. Very good at minecraft bedwars. yes.")
 
 # running the bot
 bot.run(bot_token.bot_token)
