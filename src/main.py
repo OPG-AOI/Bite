@@ -42,19 +42,27 @@ async def on_ready():
     except Exception as e:
         print(e)
 
-# join message :3
 
 
 
-
-#auto role fans! role
+@bot.tree.command(name="errordowntime", description="only for bamboo")
+async def errordowntime(Interaction= discord.Interaction.user):
+    if discord.User.id == 915043169614311424:  # Only allow the user "bambooyt" to use the command
+        for guild in bot.guilds:
+            for channel in guild.text_channels:
+                if channel.permissions_for(guild.me).send_messages:
+                    await random.channel.send("**Bite** will be offline **temporarily** while I currently add more commands. Thank you for your patience. **-Bamboo**")
+                    break  # Stop after sending the message in one channel
+        print("One-time message sent to all servers.")
+    else:
+        print("You are not authorized to use this command.")
 
 @bot.event
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name="Fans!")
     await member.add_roles(role)
 
-#welcome message in guild
+# join message :3
 
 @bot.event
 async def on_member_join(member):
@@ -354,6 +362,11 @@ async def funnypepsi(interaction: discord.Interaction):
     await channel.send(funnypepsi_story6 + " " + funnypepsi_story7 + " " + funnypepsi_story8)
     await channel.send(benchmark)
     await channel.send(funnypepsi_story9 + " " + funnypepsi_story10)
+
+@bot.tree.command(name="eat", description="Eat someone alive!")
+@app_commands.describe(user="User to eat.")
+async def eat(interaction: discord.Interaction, user: discord.User):
+    pass
 
 
 @bot.tree.command(name="bop", description="Bop someone on the head")
