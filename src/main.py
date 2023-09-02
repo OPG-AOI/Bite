@@ -16,7 +16,7 @@ from datetime import timedelta
 import discord
 from discord import app_commands
 from discord.ext import commands
-
+import asyncio
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -24,6 +24,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="/", intents=intents)
 
 # initialization
+
 
 
 @bot.event
@@ -42,6 +43,12 @@ async def on_ready():
     except Exception as e:
         print(e)
 
+async def update_presence():
+    while True:
+        server_count = len(bot.guilds)
+        activity = discord.Activity(type=discord.ActivityType.playing, name=f"In {server_count} servers")
+        bot.loop.run_until_complete(bot.change_presence(activity=activity))
+        asyncio.sleep(300)  # Update every 5 minutes
 
 
 
@@ -72,6 +79,17 @@ async def on_member_join(member):
         welcome_message = f'Welcome {member.mention} to {server_title}! We hope you have a great time with us!'
         await system_channel.send(welcome_message)
 
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user.name}')
+
+    # Fetch the list of guilds (servers) the bot is a member of
+    guilds = bot.guilds
+
+    print(f'Bot is a member of {len(guilds)} guilds:')
+    for guild in guilds:
+        owner = guild.owner
+        print(f'- {guild.name} (ID: {guild.id}), owned by: {owner.name} (ID: {owner.id})')
 
 # ping command
 
@@ -96,50 +114,7 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("Hey 😏!", ephemeral=True)
 
 
-@bot.tree.command()
-async def autorole(interaction: discord.Interaction):
-    if interaction.permissions.administrator:
-        channel = interaction.channel
 
-        # Your code for the autorole command
-        # Prompt options to set up auto role system
-        await interaction.response.send_message("Auto Role Setup:\n1. Set Auto Role\n2. Remove Auto Role")
-
-        def check(m: discord.Message):
-            return m.author == interaction.user and m.channel == interaction.channel
-
-        try:
-            message = await bot.wait_for('message', check=check, timeout=30)
-        except TimeoutError:
-            await channel.send("Auto Role setup timed out.")
-            return
-
-        option = message.content
-
-        if option == "1":
-            await channel.send("Mention the role to be assigned to new members:")
-
-            try:
-                role_message = await bot.wait_for('message', check=check, timeout=30)
-            except TimeoutError:
-                await channel.send("Role setup timed out.")
-                return
-
-            role = role_message.role_mentions[0]
-
-            # Save the role or use it as desired
-            # e.g., store in a database or assign it when new users join
-
-            await channel.send(f"Auto Role set to {role.name}.")
-
-        elif option == "2":
-            # Remove the auto role or perform necessary actions
-            await channel.send("Auto Role removed.")
-
-        else:
-            await channel.send("Invalid option.")
-    else:
-        await interaction.response.send_message("You must be an admin to use this command.")
 
 
 # warn command
@@ -151,13 +126,38 @@ possible_warn_reasons = [
 ]
 
 
-@bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
-@app_commands.describe(user="User to warn.")
-@app_commands.default_permissions(administrator=True)
-async def warn(interaction: discord.Interaction, user: discord.Member, reason: str):
-    await user.timeout(timedelta(minutes=5))
-    await interaction.response.send_message(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
+# Create a dictionary to store user warns (userID: warnCount)
+user_warns = {}
 
+
+async def create_warn_role(guild, warn_count):
+    role_name = f"Warn #{warn_count}"
+    existing_role = discord.utils.get(guild.roles, name=role_name)
+    
+    if not existing_role:
+        role = await guild.create_role(name=role_name)
+        return role
+    else:
+        return existing_role
+
+@bot.command(name="warn", description="Warn a specific user with a funny message.")
+async def warn(ctx, user: discord.Member, reason: str):
+    if user.id not in user_warns:
+        user_warns[user.id] = 1
+        await create_warn_role(user.guild, 1)
+    else:
+        user_warns[user.id] += 1
+        if user_warns[user.id] <= 3:
+            old_role = discord.utils.get(user.guild.roles, name=f"Warn #{user_warns[user.id] - 1}")
+            if old_role:
+                await user.remove_roles(old_role)
+            new_role = await create_warn_role(user.guild, user_warns[user.id])
+            await user.add_roles(new_role)
+            if user_warns[user.id] == 3:
+                await user.kick(reason="Third warning.")
+    
+    await user.timeout(timedelta(minutes=5))
+    await ctx.send(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
 
 possible_quotes = [
 
