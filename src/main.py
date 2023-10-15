@@ -2,7 +2,7 @@
 import bot_token
 
 # import os
-
+import aiomysql
 import os
 
 # randomness
@@ -43,12 +43,16 @@ async def on_ready():
     except Exception as e:
         print(e)
 
-async def update_presence():
-    while True:
-        server_count = len(bot.guilds)
-        activity = discord.Activity(type=discord.ActivityType.playing, name=f"In {server_count} servers")
-        bot.loop.run_until_complete(bot.change_presence(activity=activity))
-        asyncio.sleep(300)  # Update every 5 minutes
+@bot.event
+async def on_ready():
+    activity = discord.Activity(
+        type=discord.ActivityType.watching,
+        name=f'in {len(bot.guilds)} servers'
+    )
+    
+    await bot.change_presence(activity=activity)
+
+
 
 
 
@@ -78,6 +82,13 @@ async def on_member_join(member):
         server_title = member.guild.name
         welcome_message = f'Welcome {member.mention} to {server_title}! We hope you have a great time with us!'
         await system_channel.send(welcome_message)
+
+@bot.event
+async def on_member_remove(member):
+    # Replace 'your_system_messages_channel_id' with the ID of your system messages channel
+    system_messages_channel = member.guild.system_channel
+    if system_messages_channel:
+        await system_messages_channel.send(f"We're sad to see you go, {member.name}!")
 
 @bot.event
 async def on_ready():
@@ -126,39 +137,34 @@ possible_warn_reasons = [
 ]
 
 
-# Create a dictionary to store user warns (userID: warnCount)
-user_warns = {}
-
-
-async def create_warn_role(guild, warn_count):
-    role_name = f"Warn #{warn_count}"
-    existing_role = discord.utils.get(guild.roles, name=role_name)
-    
-    if not existing_role:
-        role = await guild.create_role(name=role_name)
-        return role
-    else:
-        return existing_role
-
-@bot.command(name="warn", description="Warn a specific user with a funny message.")
+@bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
 async def warn(ctx, user: discord.Member, reason: str):
-    if user.id not in user_warns:
-        user_warns[user.id] = 1
-        await create_warn_role(user.guild, 1)
-    else:
-        user_warns[user.id] += 1
-        if user_warns[user.id] <= 3:
-            old_role = discord.utils.get(user.guild.roles, name=f"Warn #{user_warns[user.id] - 1}")
-            if old_role:
-                await user.remove_roles(old_role)
-            new_role = await create_warn_role(user.guild, user_warns[user.id])
-            await user.add_roles(new_role)
-            if user_warns[user.id] == 3:
-                await user.kick(reason="Third warning.")
-    
+    # Get the database connection pool
+    db_pool = await create_db_pool()
+
+    # Check if the user has been warned before
+    async with db_pool.acquire() as conn:
+        # Check if the user is already in the database
+        query = "SELECT warn_count FROM warnings WHERE user_id = $1"
+        row = await conn.fetchrow(query, user.id)
+
+        if row is None:
+            # If the user is not in the database, insert them with 1 warning
+            query = "INSERT INTO warnings (user_id, warn_count) VALUES ($1, 1)"
+            await conn.execute(query, user.id)
+        else:
+            # If the user is in the database, update their warning count
+            new_warn_count = row["warn_count"] + 1
+            query = "UPDATE warnings SET warn_count = $1 WHERE user_id = $2"
+            await conn.execute(query, new_warn_count, user.id)
+
+        # Insert the warning information into a separate warnings table
+        query = "INSERT INTO user_warnings (user_id, reason) VALUES ($1, $2)"
+        await conn.execute(query, user.id, reason)
+
+    # You can continue with the rest of your warning command logic
     await user.timeout(timedelta(minutes=5))
     await ctx.send(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
-
 possible_quotes = [
 
     "The only way to do great work is to love what you do. - Steve Jobs",
