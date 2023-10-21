@@ -1,4 +1,4 @@
-<img src="docs/bamboo.png" width="256" height="256">
+<img src="docs/bite.png" width="256" height="256">
 
 # Bite V2 Source Code
 
