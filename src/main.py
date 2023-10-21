@@ -2,7 +2,6 @@
 import bot_token
 
 # import os
-import aiomysql
 import os
 
 # randomness
@@ -55,18 +54,7 @@ async def on_ready():
 
 
 
-@bot.tree.command()
-async def report(ctx, *, report_text):
-    # Find a member with administrator permissions in the server
-    admin = discord.utils.get(ctx.guild.members, guild__id=ctx.guild.id, permissions=discord.Permissions(administrator=True))
 
-    if admin:
-        # Send the report message to the administrator via private message
-        report_message = f'Report from {ctx.author.display_name} ({ctx.author.id}):\n{report_text}'
-        await admin.send(report_message)
-        await ctx.send('Report submitted to the administrator. Thank you!')
-    else:
-        await ctx.send('No administrator found in this server.')
 
 @bot.tree.command(name="errordowntime", description="only for bamboo")
 async def errordowntime(Interaction= discord.Interaction.user):
@@ -138,8 +126,6 @@ async def ping(interaction: discord.Interaction):
 
 
 
-
-
 # warn command
 possible_warn_reasons = [
     "They were acting like a monkey and got a timeout!",
@@ -147,36 +133,6 @@ possible_warn_reasons = [
     "They were acting kind of sussy and got ejected for some time.",
     "They said a nono word and went bye bye."
 ]
-
-
-@bot.tree.command(name="warn", description="Warn a specific user with a funny message.")
-async def warn(ctx, user: discord.Member, reason: str):
-    # Get the database connection pool
-    db_pool = await create_db_pool()
-
-    # Check if the user has been warned before
-    async with db_pool.acquire() as conn:
-        # Check if the user is already in the database
-        query = "SELECT warn_count FROM warnings WHERE user_id = $1"
-        row = await conn.fetchrow(query, user.id)
-
-        if row is None:
-            # If the user is not in the database, insert them with 1 warning
-            query = "INSERT INTO warnings (user_id, warn_count) VALUES ($1, 1)"
-            await conn.execute(query, user.id)
-        else:
-            # If the user is in the database, update their warning count
-            new_warn_count = row["warn_count"] + 1
-            query = "UPDATE warnings SET warn_count = $1 WHERE user_id = $2"
-            await conn.execute(query, new_warn_count, user.id)
-
-        # Insert the warning information into a separate warnings table
-        query = "INSERT INTO user_warnings (user_id, reason) VALUES ($1, $2)"
-        await conn.execute(query, user.id, reason)
-
-    # You can continue with the rest of your warning command logic
-    await user.timeout(timedelta(minutes=5))
-    await ctx.send(f"**{user.mention}** has been warned! {possible_warn_reasons[random.randint(0, len(possible_warn_reasons) - 1)]} **Reason**: {reason}")
 possible_quotes = [
 
     "The only way to do great work is to love what you do. - Steve Jobs",
@@ -255,6 +211,18 @@ async def quote(interaction: discord.Interaction):
     before = datetime.now()
     await interaction.response.send_message(possible_quotes[random.randint(0, len(possible_quotes) - 1)], ephemeral=True)
 
+@bot.tree.command(name="report", description="Report a problem to a administrator")
+async def report(ctx, report_text, interaction: discord.Interaction):
+    # Find a member with administrator permissions in the server
+    admin = discord.utils.get(ctx.guild.members, guild__id=ctx.guild.id, permissions=discord.Permissions(administrator=True))
+
+    if admin:
+        # Send the report message to the administrator via private message
+        report_message = f'Report from {ctx.author.display_name} ({ctx.author.name}):\n{report_text}'
+        await admin.send(report_message)
+        await ctx.send('Report submitted to the administrator. Thank you!')
+    else:
+        await ctx.send('No administrator found in this server.')
 
 possible_roasts = [
     "Is your name Google? Because you have everything I'm searching for... in the wrong places.",
@@ -410,11 +378,11 @@ async def emily(interaction: discord.Interaction):
 
 @bot.tree.command(name="alex", description= "The great alex" )
 async def alex(interaction: discord.Interaction):
-    await interaction.message.send_message("Yo its Emily's little bro Alex!!!!! Hes aweseome btw.")
+    await interaction.response.send_message("Yo its Emily's little bro Alex!!!!! Hes aweseome btw.")
 
 @bot.tree.command(name="keatonium", description= "The great keatonium" )
 async def alex(interaction: discord.Interaction):
-    await interaction.message.send_message("Bamboos mother. Very good at minecraft bedwars. yes.")
+    await interaction.response.send_message("Bamboos mother. Very good at minecraft bedwars. yes.")
 
 # running the bot
 bot.run(bot_token.bot_token)
