@@ -211,18 +211,7 @@ async def quote(interaction: discord.Interaction):
     before = datetime.now()
     await interaction.response.send_message(possible_quotes[random.randint(0, len(possible_quotes) - 1)], ephemeral=True)
 
-@bot.tree.command(name="report", description="Report a problem to a administrator")
-async def report(ctx, report_text, interaction: discord.Interaction):
-    # Find a member with administrator permissions in the server
-    admin = discord.utils.get(ctx.guild.members, guild__id=ctx.guild.id, permissions=discord.Permissions(administrator=True))
 
-    if admin:
-        # Send the report message to the administrator via private message
-        report_message = f'Report from {ctx.author.display_name} ({ctx.author.name}):\n{report_text}'
-        await admin.send(report_message)
-        await ctx.send('Report submitted to the administrator. Thank you!')
-    else:
-        await ctx.send('No administrator found in this server.')
 
 possible_roasts = [
     "Is your name Google? Because you have everything I'm searching for... in the wrong places.",
@@ -352,7 +341,13 @@ async def funnypepsi(interaction: discord.Interaction):
 @bot.tree.command(name="eat", description="Eat someone alive!")
 @app_commands.describe(user="User to eat.")
 async def eat(interaction: discord.Interaction, user: discord.User):
-    pass
+    image_path = os.path.join(os.path.dirname(__file__), 'mouth.png')
+
+    with open(image_path, 'rb') as file:
+        image = discord.File(file)
+
+    message = f"{user.mention} got eaten!"
+    await interaction.response.send_message(content=message, file=image)
 
 
 @bot.tree.command(name="bop", description="Bop someone on the head")
@@ -374,7 +369,7 @@ async def emily(interaction: discord.Interaction):
         image = discord.File(file)
 
      message = f"Emily is kind of ballin. Oh and here is her YouTube channel: https://www.youtube.com/@emilybacher8641"
-     await interaction.response.send_message(content=message, file=image, ephemeral=True)
+     await interaction.response.send_message(content=message, file=image)
 
 @bot.tree.command(name="alex", description= "The great alex" )
 async def alex(interaction: discord.Interaction):
