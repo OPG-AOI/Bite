@@ -371,6 +371,17 @@ async def emily(interaction: discord.Interaction):
      message = f"Emily is kind of ballin. Oh and here is her YouTube channel: https://www.youtube.com/@emilybacher8641"
      await interaction.response.send_message(content=message, file=image)
 
+@bot.tree.command(name="hazel", description="hazel!!")
+async def emily(interaction: discord.Interaction):
+     BALLS = os.path.join(os.path.dirname(__file__), 'hazel.png')
+    
+     with open(BALLS, 'rb') as file:
+        image = discord.File(file)
+
+     message = f"ITSSSSSSSSSSSSSSSSSS HAAAAAAAAAAAAAAAAZEEEEEEEEEEEEEEEEEEEEEEL!!!!!!!!!!!!!! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+     await interaction.response.send_message(content=message, file=image)
+        
+
 @bot.tree.command(name="alex", description= "The great alex" )
 async def alex(interaction: discord.Interaction):
     await interaction.response.send_message("Yo its Emily's little bro Alex!!!!! Hes aweseome btw.")
