@@ -363,19 +363,19 @@ async def boop(interaction: discord.Interaction, user: discord.User):
 
 @bot.tree.command(name="emily", description="emily!!")
 async def emily(interaction: discord.Interaction):
-     BALLS = os.path.join(os.path.dirname(__file__), 'emily.png')
+     emily_img = os.path.join(os.path.dirname(__file__), 'emily.png')
     
-     with open(BALLS, 'rb') as file:
+     with open(emily_img, 'rb') as file:
         image = discord.File(file)
 
      message = f"Emily is kind of ballin. Oh and here is her YouTube channel: https://www.youtube.com/@emilybacher8641"
      await interaction.response.send_message(content=message, file=image)
 
 @bot.tree.command(name="hazel", description="hazel!!")
-async def emily(interaction: discord.Interaction):
-     BALLS = os.path.join(os.path.dirname(__file__), 'hazel.png')
+async def hazel(interaction: discord.Interaction):
+     haze_img = os.path.join(os.path.dirname(__file__), 'hazel.png')
     
-     with open(BALLS, 'rb') as file:
+     with open(haze_img, 'rb') as file:
         image = discord.File(file)
 
      message = f"ITSSSSSSSSSSSSSSSSSS HAAAAAAAAAAAAAAAAZEEEEEEEEEEEEEEEEEEEEEEL!!!!!!!!!!!!!! WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
