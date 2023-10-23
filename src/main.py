@@ -42,19 +42,6 @@ async def on_ready():
     except Exception as e:
         print(e)
 
-@bot.event
-async def on_ready():
-    activity = discord.Activity(
-        type=discord.ActivityType.watching,
-        name=f'in {len(bot.guilds)} servers'
-    )
-    
-    await bot.change_presence(activity=activity)
-
-
-
-
-
 
 @bot.tree.command(name="errordowntime", description="only for bamboo")
 async def errordowntime(Interaction= discord.Interaction.user):
