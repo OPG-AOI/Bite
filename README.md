@@ -22,4 +22,4 @@ bot_token = "Put your token here"
 
 Simply run `python main.py` while in the `src` directory and you're good!
 
-<img src="docs/bernie_mittens.png" width="10" height="10">
+<img src="docs/bernie_mittens.jpeg" width="10" height="10">
