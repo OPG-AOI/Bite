@@ -1,6 +1,6 @@
 <img src="docs/bite.png" width="150" height="150">
 
-# Bite V2 Source Code
+# Bite V1 Source Code
 
 Just give us the credit in the discord bots bio.
 
