@@ -55,10 +55,23 @@ async def errordowntime(Interaction= discord.Interaction.user):
     else:
         print("You are not authorized to use this command.")
 
-@bot.event
-async def on_member_join(member):
-    role = discord.utils.get(member.guild.roles, name="Fans!")
-    await member.add_roles(role)
+
+#ban reasons
+
+possible_ban_message =  [
+    "they were being to much of a goofy goober.",
+    "they were kinda "
+
+
+
+]
+
+#ban command
+
+async def ban(ctx, member: discord.Member, *, reason=None, administrator=True):
+    await member.ban(reason=reason)
+    await ctx.send(f'User {member} has been banned, ')
+
 
 # join message :3
 
@@ -72,10 +85,9 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    # Replace 'your_system_messages_channel_id' with the ID of your system messages channel
     system_messages_channel = member.guild.system_channel
     if system_messages_channel:
-        await system_messages_channel.send(f"We're sad to see you go, {member.name}!")
+        await system_messages_channel.send(f"We're sad to see you go, {member.mention}!")
 
 @bot.event
 async def on_ready():
@@ -287,7 +299,7 @@ possible_roasts = [
 ]
 
 
-@bot.tree.command(name="roast", description="Roasts a person in the")
+@bot.tree.command(name="roast", description="Roasts a person.")
 @app_commands.describe(user="User to roast.")
 @app_commands.default_permissions(administrator=False)
 async def warn(interaction: discord.Interaction, user: discord.Member):
